@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <title>EduPy – 60+ Python Assessments | Practice by Level</title>
+  <link rel="icon" href="logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --purple: #6C63FF;
+      --purple-dk: #4B44CC;
+      --purple-lt: #8B83FF;
+      --coral: #FF6B6B;
+      --coral-dk: #CC4444;
+      --mint: #4ECDC4;
+      --mint-dk: #33A89F;
+      --bg-light: #F4F7FD;
+      --card-bg: #FFFFFF;
+      --text-dark: #1E1B4B;
+      --text-muted: #5B5B7A;
+      --border-light: rgba(108, 99, 255, 0.15);
+      --shadow-card: 0 8px 20px rgba(0, 0, 0, 0.05), 0 2px 0 rgba(108, 99, 255, 0.1);
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 16px;
+      --transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      scroll-behavior: smooth;
+    }
+
+    /* glass navbar - same as home */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(244, 247, 253, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+
+    .logo-icon {
+      background: linear-gradient(135deg, var(--purple), var(--coral));
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: white;
+      box-shadow: 0 3px 0 var(--purple-dk);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      padding: 0.4rem 1rem;
+      border-radius: 40px;
+      font-weight: 600;
+      text-decoration: none;
+      background: rgba(108, 99, 255, 0.08);
+      color: var(--purple);
+      transition: 0.2s;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-btn.primary {
+      background: var(--purple);
+      color: white;
+      box-shadow: 0 2px 6px rgba(108, 99, 255, 0.3);
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-2px);
+      background: var(--purple);
+      color: white;
+    }
+
+    /* main container */
+    .app-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    /* hero section */
+    .hero-section {
+      margin-bottom: 2rem;
+    }
+
+    .hero-badge {
+      background: rgba(108, 99, 255, 0.12);
+      display: inline-block;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--purple);
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-title {
+      font-size: 2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--purple), var(--coral));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.2;
+    }
+
+    /* filter bar */
+    .filter-bar {
+      background: white;
+      border-radius: 60px;
+      padding: 0.5rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin: 1.5rem 0 2rem;
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--border-light);
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .level-select {
+      background: var(--bg-light);
+      border: 1px solid var(--border-light);
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      font-weight: 500;
+      color: var(--text-dark);
+      font-size: 0.85rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .stats-badge {
+      background: rgba(78, 205, 196, 0.15);
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      color: var(--mint-dk);
+      font-weight: 600;
+    }
+
+    /* questions grid */
+    .questions-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .level-section {
+      scroll-margin-top: 90px;
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--border-light);
+      transition: var(--transition);
+    }
+
+    .level-section:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 30px -12px rgba(108, 99, 255, 0.2);
+    }
+
+    .level-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 1.2rem;
+      border-left: 5px solid var(--purple);
+      padding-left: 1rem;
+    }
+
+    .level-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .level-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .question-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .question-item {
+      background: var(--bg-light);
+      border-radius: var(--radius-md);
+      padding: 1.2rem;
+      border: 1px solid rgba(108, 99, 255, 0.1);
+      transition: var(--transition);
+    }
+
+    .question-item:hover {
+      border-color: var(--purple-lt);
+      box-shadow: 0 4px 12px rgba(108, 99, 255, 0.08);
+    }
+
+    .question-meta {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--purple);
+      background: rgba(108, 99, 255, 0.1);
+      display: inline-block;
+      padding: 0.2rem 0.7rem;
+      border-radius: 30px;
+      margin-bottom: 0.6rem;
+    }
+
+    .question-text {
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      line-height: 1.4;
+      font-size: 0.95rem;
+    }
+
+    .question-actions {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.8rem;
+    }
+
+    .qa-btn {
+      border-radius: 40px;
+      border: 1px solid var(--border-light);
+      background: white;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.35rem 1rem;
+      color: var(--text-dark);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+
+    .qa-btn:hover {
+      background: var(--purple);
+      color: white;
+      border-color: var(--purple);
+      transform: translateY(-2px);
+    }
+
+    .hint-box, .solution-box {
+      display: none;
+      margin-top: 0.8rem;
+      border-radius: 1rem;
+      padding: 0.8rem;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .hint-box.visible, .solution-box.visible {
+      display: block;
+    }
+
+    .hint-box {
+      background: rgba(250, 204, 21, 0.08);
+      border-left: 3px solid #facc15;
+      color: #92400e;
+    }
+
+    .solution-box {
+      background: rgba(78, 205, 196, 0.08);
+      border-left: 3px solid var(--mint);
+    }
+
+    .solution-box pre {
+      margin: 0.5rem 0 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      overflow-x: auto;
+      background: #1e1b4b;
+      color: #e2e8f0;
+      padding: 0.6rem;
+      border-radius: 12px;
+    }
+
+    /* footer */
+    .footer {
+      background: #1e1b4b;
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 3rem;
+      border-radius: 28px 28px 0 0;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.8rem;
+    }
+
+    .footer a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* responsive */
+    @media (max-width: 800px) {
+      .navbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .nav-links {
+        justify-content: center;
+      }
+      .hero-title {
+        font-size: 1.6rem;
+      }
+      .level-title {
+        font-size: 1.3rem;
+      }
+      .level-section {
+        padding: 1rem;
+      }
+      .question-item {
+        padding: 1rem;
+      }
+      .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 24px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .app-container {
+        padding: 1rem 0.8rem;
+      }
+      .question-text {
+        font-size: 0.88rem;
+      }
+      .qa-btn {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.7rem;
+      }
+    }
+
+    /* scroll padding */
+    html {
+      scroll-padding-top: 100px;
+    }
+
+    button, .qa-btn, .nav-btn {
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo">
+    <div class="logo-icon">Py</div>
+    <span>EduPy <span style="font-weight: 400;">Assessments</span></span>
+  </div>
+  <div class="nav-links">
+    <a href="home.html" class="nav-btn">✏️ Editor</a>
+    <a href="notes.html" class="nav-btn">📘 Notes</a>
+    <a href="index.html" class="nav-btn">🏠 Home</a>
+  </div>
+</nav>
+
+<div class="app-container">
+  <div class="hero-section">
+    <div class="hero-badge">📝 62+ problems • level-wise • hints & solutions</div>
+    <h1 class="hero-title">Python Practice Assessments<br>from Absolute Beginner to Advanced</h1>
+    <p style="margin-top: 0.5rem; color: var(--text-muted);">Filter by level, attempt each problem, use hints when stuck, then check the solution. All questions work with EduPy editor.</p>
+  </div>
+
+  <div class="filter-bar">
+    <div class="filter-group">
+      <span>🔍 Filter by level:</span>
+      <select id="levelFilter" class="level-select">
+        <option value="all">📌 All Levels (62 questions)</option>
+        <option value="L1">🌟 Level 1 – Absolute Beginner (8)</option>
+        <option value="L2">⚡ Level 2 – Basics with Logic (10)</option>
+        <option value="L3">📚 Level 3 – Strings & Lists (10)</option>
+        <option value="L4">🔄 Level 4 – Loops & Patterns (10)</option>
+        <option value="L5">🧩 Level 5 – Functions & Dicts (12)</option>
+        <option value="L6">🚀 Level 6 – Mini Problems (12)</option>
+      </select>
+    </div>
+    <div class="stats-badge" id="questionCount">📋 All levels · 62 questions</div>
+  </div>
+
+  <div class="questions-grid" id="questionsContainer">
+    <!-- dynamically injected with 62 questions -->
+  </div>
+</div>
+
+<footer class="footer">
+  <span>Made with 💜 by Mohammed Shadab · EduPy Project</span>
+  <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+    <a href="home.html">Editor</a>
+    <a href="notes.html">Notes</a>
+    <a href="assessments.html">Assessments</a>
+  </div>
+</footer>
+
+<script>
+  // ---------- 62+ PYTHON PRACTICE QUESTIONS (ENGLISH ONLY) ----------
+  const levelsData = [
+    { id: "L1", title: "🌟 Level 1 – Absolute Beginner (Syntax & Printing)", desc: "Basic syntax, variables, input/output, simple arithmetic.",
+      questions: [
+        { text: "Write a program that prints <code>Hello, EduPy</code>.", hint: "Use the <code>print()</code> function. Put the text inside quotation marks.", solution: "print(\"Hello, EduPy\")" },
+        { text: "Take the user's name as input and print <code>Hello, &lt;name&gt;</code>.", hint: "Use <code>input()</code> to get the name, then combine the string and the variable in <code>print()</code>.", solution: "name = input(\"Enter your name: \")\nprint(\"Hello,\", name)" },
+        { text: "Create two variables <code>a</code> and <code>b</code>, store numbers and print their sum.", hint: "Store numbers in <code>a</code> and <code>b</code>, then print <code>a + b</code>.", solution: "a = 10\nb = 20\nsum = a + b\nprint(\"Sum =\", sum)" },
+        { text: "Take the user's age as input and print: <code>You are &lt;age&gt; years old</code>.", hint: "<code>input()</code> returns a string. You can print it directly with concatenation.", solution: "age = input(\"Enter your age: \")\nprint(\"You are\", age, \"years old\")" },
+        { text: "Write a program that prints three lines: <code>Line 1</code>, <code>Line 2</code>, <code>Line 3</code>.", hint: "Use a separate <code>print()</code> statement for each line.", solution: "print(\"Line 1\")\nprint(\"Line 2\")\nprint(\"Line 3\")" },
+        { text: "Take a number from the user and print its double (2 × number).", hint: "Use <code>int()</code> to convert the input to a number. Then multiply by 2.", solution: "n = int(input(\"Enter a number: \"))\nresult = 2 * n\nprint(\"Double =\", result)" },
+        { text: "Swap two numbers using a temporary variable.", hint: "Use a third variable to hold one value while swapping.", solution: "a = 5\nb = 10\ntemp = a\na = b\nb = temp\nprint(\"a =\", a, \"b =\", b)" },
+        { text: "Print the result of (15 + 30) * 2 / 5.", hint: "Python follows BODMAS. Just print the expression.", solution: "print((15 + 30) * 2 / 5)" }
+      ] },
+    { id: "L2", title: "⚡ Level 2 – Basics with Logic (If/Else, Comparisons)", desc: "Conditionals, comparison operators, logical operators.",
+      questions: [
+        { text: "Take a number from the user. If it is even, print <code>Even</code>, otherwise print <code>Odd</code>.", hint: "Use modulo operator <code>%</code>. If <code>n % 2 == 0</code> the number is even.", solution: "n = int(input(\"Enter a number: \"))\nif n % 2 == 0:\n    print(\"Even\")\nelse:\n    print(\"Odd\")" },
+        { text: "Take age as input. If <code>age &lt; 18</code>, print <code>Minor</code>, otherwise print <code>Adult</code>.", hint: "Check <code>if age &lt; 18</code> inside the <code>if</code> statement; otherwise run <code>else</code>.", solution: "age = int(input(\"Enter age: \"))\nif age < 18:\n    print(\"Minor\")\nelse:\n    print(\"Adult\")" },
+        { text: "Take 3 numbers from the user and print the largest number.", hint: "Assume max = first number, then compare and update.", solution: "a = int(input(\"First: \"))\nb = int(input(\"Second: \"))\nc = int(input(\"Third: \"))\nmax_val = a\nif b > max_val: max_val = b\nif c > max_val: max_val = c\nprint(\"Largest is\", max_val)" },
+        { text: "Take marks (0–100) and print the grade: A (≥90), B (≥75), C (≥60), D (≥40), F (else).", hint: "Use an <code>if/elif/else</code> chain.", solution: "marks = int(input(\"Enter marks: \"))\nif marks >= 90: print(\"Grade A\")\nelif marks >= 75: print(\"Grade B\")\nelif marks >= 60: print(\"Grade C\")\nelif marks >= 40: print(\"Grade D\")\nelse: print(\"Grade F\")" },
+        { text: "Create a password check: if the user enters <code>\"admin123\"</code> print <code>Access Granted</code>, otherwise <code>Wrong Password</code>.", hint: "Use condition <code>if entered == \"admin123\"</code>.", solution: "pwd = input(\"Enter password: \")\nif pwd == \"admin123\":\n    print(\"Access Granted\")\nelse:\n    print(\"Wrong Password\")" },
+        { text: "Take a year as input and check whether it is a leap year (divisible by 4).", hint: "If <code>year % 4 == 0</code> then leap year.", solution: "year = int(input(\"Enter year: \"))\nif year % 4 == 0:\n    print(\"Leap year\")\nelse:\n    print(\"Not a leap year\")" },
+        { text: "Check if a number is positive, negative, or zero.", hint: "Use if-elif-else with >0, <0, ==0.", solution: "n = int(input(\"Enter number: \"))\nif n > 0: print(\"Positive\")\nelif n < 0: print(\"Negative\")\nelse: print(\"Zero\")" },
+        { text: "Take two numbers and print which is greater, or if equal.", hint: "Use if-elif-else comparisons.", solution: "a = int(input(\"a: \"))\nb = int(input(\"b: \"))\nif a > b: print(\"a is greater\")\nelif b > a: print(\"b is greater\")\nelse: print(\"Equal\")" },
+        { text: "Write a simple calculator that adds or subtracts based on user choice.", hint: "Take operator as input, then perform operation.", solution: "a = int(input(\"a: \"))\nb = int(input(\"b: \"))\nop = input(\"Enter + or -: \")\nif op == '+': print(a+b)\nelif op == '-': print(a-b)\nelse: print(\"Invalid\")" },
+        { text: "Check if a character is a vowel.", hint: "Check if char in 'aeiouAEIOU'.", solution: "ch = input(\"Enter a character: \")\nif ch in 'aeiouAEIOU':\n    print(\"Vowel\")\nelse:\n    print(\"Consonant\")" }
+      ] },
+    { id: "L3", title: "📚 Level 3 – Strings & Lists Practice", desc: "String manipulation, list operations, slicing.",
+      questions: [
+        { text: "Take a string from the user and print it in uppercase.", hint: "Use <code>.upper()</code> method.", solution: "text = input(\"Enter text: \")\nprint(text.upper())" },
+        { text: "Take a string and print its length.", hint: "Use <code>len()</code> function.", solution: "text = input(\"Enter text: \")\nprint(\"Length =\", len(text))" },
+        { text: "Take a string and print its first and last character.", hint: "First char: <code>text[0]</code>, last: <code>text[-1]</code>.", solution: "text = input(\"Enter text: \")\nif len(text) > 0:\n    print(\"First:\", text[0], \"Last:\", text[-1])" },
+        { text: "Take the string <code>\"python programming\"</code> and replace spaces with <code>\"-\"</code>.", hint: "Use <code>.replace(\" \", \"-\")</code>.", solution: "text = \"python programming\"\nresult = text.replace(\" \", \"-\")\nprint(result)" },
+        { text: "Take a sentence from user and create a list of words (split).", hint: "Use <code>.split()</code>.", solution: "sentence = input(\"Enter a sentence: \")\nwords = sentence.split()\nprint(words)" },
+        { text: "Create a list <code>[10,20,30,40,50]</code> and print first, middle, last elements.", hint: "Index 0, 2, -1.", solution: "nums = [10,20,30,40,50]\nprint(\"First:\", nums[0], \"Middle:\", nums[2], \"Last:\", nums[-1])" },
+        { text: "Reverse a string using slicing.", hint: "Use <code>s[::-1]</code>.", solution: "s = input(\"Enter string: \")\nprint(\"Reversed:\", s[::-1])" },
+        { text: "Count how many times a specific letter appears in a string.", hint: "Use <code>.count()</code> method or loop.", solution: "s = input(\"String: \")\nch = input(\"Letter: \")\nprint(s.count(ch))" },
+        { text: "Check if a string contains only digits.", hint: "Use <code>.isdigit()</code>.", solution: "s = input(\"Enter: \")\nif s.isdigit(): print(\"Only digits\")\nelse: print(\"Contains other characters\")" },
+        { text: "Create a list of squares of numbers from 1 to 10 using list comprehension.", hint: "[x*x for x in range(1,11)]", solution: "squares = [x*x for x in range(1,11)]\nprint(squares)" }
+      ] },
+    { id: "L4", title: "🔄 Level 4 – Loops & Patterns", desc: "For loops, while loops, nested loops, number patterns.",
+      questions: [
+        { text: "Print numbers from 1 to 10 using a for loop.", hint: "Use <code>range(1,11)</code>.", solution: "for i in range(1,11):\n    print(i)" },
+        { text: "Take a number and print its multiplication table (1–10).", hint: "Loop i from 1 to 10 and print n*i.", solution: "n = int(input(\"Enter number: \"))\nfor i in range(1,11):\n    print(n, \"x\", i, \"=\", n*i)" },
+        { text: "Print all even numbers between 1 and 50.", hint: "Check <code>i % 2 == 0</code>.", solution: "for i in range(1,51):\n    if i%2==0: print(i)" },
+        { text: "Print this pattern:\n<pre>*\n**\n***</pre>", hint: "Use string multiplication: <code>\"*\" * i</code>.", solution: "for i in range(1,4):\n    print(\"*\" * i)" },
+        { text: "Compute factorial of a number using for loop.", hint: "Start result=1 and multiply i from 1 to n.", solution: "n = int(input(\"Enter number: \"))\nfact = 1\nfor i in range(1, n+1):\n    fact *= i\nprint(\"Factorial =\", fact)" },
+        { text: "Print first 10 Fibonacci numbers (0,1,1,2,3...).", hint: "Keep a=0,b=1; update each step.", solution: "a,b = 0,1\nfor i in range(10):\n    print(a)\n    a,b = b, a+b" },
+        { text: "Print sum of all numbers from 1 to N using while loop.", hint: "Initialize sum=0, i=1, while i<=n.", solution: "n = int(input(\"N: \"))\ns=0\ni=1\nwhile i<=n:\n    s+=i\n    i+=1\nprint(s)" },
+        { text: "Print a hollow square of stars of size n.", hint: "Use nested loops: print '*' for borders else space.", solution: "n = 5\nfor i in range(n):\n    for j in range(n):\n        if i==0 or i==n-1 or j==0 or j==n-1:\n            print('*', end=' ')\n        else:\n            print(' ', end=' ')\n    print()" },
+        { text: "Find the sum of digits of a number.", hint: "Convert to string and sum int digits, or use while loop.", solution: "num = int(input(\"Number: \"))\ns = 0\nwhile num>0:\n    s += num%10\n    num //= 10\nprint(s)" },
+        { text: "Print the reverse of a number (e.g., 123 → 321).", hint: "Multiply result*10 + remainder.", solution: "n = int(input(\"Number: \"))\nrev = 0\nwhile n>0:\n    rev = rev*10 + n%10\n    n//=10\nprint(rev)" }
+      ] },
+    { id: "L5", title: "🧩 Level 5 – Functions & Dicts", desc: "Define functions, return values, dictionaries, and mini projects.",
+      questions: [
+        { text: "Create function <code>greet(name)</code> that prints <code>Hello, &lt;name&gt;</code>.", hint: "Define with <code>def greet(name):</code>.", solution: "def greet(name):\n    print(\"Hello,\", name)\ngreet(input(\"Name: \"))" },
+        { text: "Create function <code>add(a,b)</code> that returns sum.", hint: "Return a+b.", solution: "def add(a,b): return a+b\nprint(add(5,3))" },
+        { text: "Write a function that takes a list of numbers and returns the average.", hint: "Sum all and divide by length.", solution: "def avg(nums):\n    return sum(nums)/len(nums)\nprint(avg([10,20,30,40]))" },
+        { text: "Create a student dictionary and print name & marks: <code>{\"name\":\"Shadab\",\"marks\":85}</code>.", hint: "Access using keys.", solution: "student = {\"name\":\"Shadab\", \"marks\":85}\nprint(\"Name:\", student[\"name\"], \"Marks:\", student[\"marks\"])" },
+        { text: "Write function <code>count_vowels(text)</code> that returns count of vowels.", hint: "Loop and check if char in 'aeiouAEIOU'.", solution: "def count_vowels(t):\n    return sum(1 for c in t if c.lower() in 'aeiou')\nprint(count_vowels(\"Hello World\"))" },
+        { text: "Create a small menu program: 1-Add, 2-Subtract, 3-Multiply, 4-Exit.", hint: "Use while loop and if/elif.", solution: "while True:\n    print(\"1.Add 2.Sub 3.Mul 4.Exit\")\n    ch = input(\"Choice: \")\n    if ch=='4': break\n    a=int(input(\"a: \"))\n    b=int(input(\"b: \"))\n    if ch=='1': print(a+b)\n    elif ch=='2': print(a-b)\n    elif ch=='3': print(a*b)" },
+        { text: "Write a function that checks if a number is prime.", hint: "Check divisibility from 2 to sqrt(n).", solution: "def is_prime(n):\n    if n<2: return False\n    for i in range(2,int(n**0.5)+1):\n        if n%i==0: return False\n    return True\nprint(is_prime(17))" },
+        { text: "Create a function that returns the maximum value in a list (without using max()).", hint: "Initialize max with first element, loop and compare.", solution: "def find_max(lst):\n    m = lst[0]\n    for x in lst:\n        if x>m: m=x\n    return m\nprint(find_max([3,1,7,4]))" },
+        { text: "Write a recursive function to calculate factorial.", hint: "Base case: n<=1 return 1 else n*fact(n-1).", solution: "def fact(n):\n    return 1 if n<=1 else n*fact(n-1)\nprint(fact(5))" },
+        { text: "Create a function that merges two dictionaries.", hint: "Use {**dict1, **dict2} or .update().", solution: "def merge_dicts(d1,d2):\n    return {**d1, **d2}\nprint(merge_dicts({'a':1},{'b':2}))" },
+        { text: "Write a function that takes a string and returns a dictionary of character counts.", hint: "Loop through string, update dict count.", solution: "def char_count(s):\n    d={}\n    for ch in s:\n        d[ch]=d.get(ch,0)+1\n    return d\nprint(char_count(\"hello\"))" },
+        { text: "Create a function that returns the Fibonacci series up to n terms.", hint: "Use list and loop.", solution: "def fib_series(n):\n    a,b=0,1\n    res=[]\n    for _ in range(n):\n        res.append(a)\n        a,b=b,a+b\n    return res\nprint(fib_series(10))" }
+      ] },
+    { id: "L6", title: "🚀 Level 6 – Mini Problems (Advanced Thinking)", desc: "Real-world style problems, algorithms, and logic puzzles.",
+      questions: [
+        { text: "Take a sentence and print how many words it contains.", hint: "Use <code>.split()</code> and <code>len()</code>.", solution: "s = input(\"Sentence: \")\nprint(\"Word count:\", len(s.split()))" },
+        { text: "Remove duplicate values from a list and return unique list.", hint: "Create new list and check if not already present.", solution: "nums = [1,2,2,3,4,4,5]\nunique = []\nfor n in nums:\n    if n not in unique: unique.append(n)\nprint(unique)" },
+        { text: "Password strength checker: length ≥8, digit, lowercase, uppercase.", hint: "Check each char with .isdigit(), .islower(), .isupper().", solution: "pwd = input(\"Password: \")\nhas_digit=has_lower=has_upper=False\nfor ch in pwd:\n    if ch.isdigit(): has_digit=True\n    elif ch.islower(): has_lower=True\n    elif ch.isupper(): has_upper=True\nif len(pwd)>=8 and has_digit and has_lower and has_upper:\n    print(\"Strong\")\nelse: print(\"Weak\")" },
+        { text: "Check whether a string is a palindrome.", hint: "Compare string with its reverse <code>s[::-1]</code>.", solution: "s = input(\"Enter text: \")\nprint(\"Palindrome\" if s == s[::-1] else \"Not palindrome\")" },
+        { text: "Mini marksheet: take 5 subjects marks, compute total, average and grade.", hint: "Store in list, sum, then grade based on avg.", solution: "marks = [int(input(f\"Sub{i+1}: \")) for i in range(5)]\ntotal = sum(marks)\navg = total/5\nif avg>=90: g='A'\nelif avg>=75: g='B'\nelif avg>=60: g='C'\nelif avg>=40: g='D'\nelse: g='F'\nprint(f\"Total: {total}, Avg: {avg}, Grade: {g}\")" },
+        { text: "Write function that takes list of integers and returns list of positive numbers only.", hint: "Filter numbers > 0.", solution: "def pos_only(nums):\n    return [n for n in nums if n>0]\nprint(pos_only([-3,0,5,10,-1]))" },
+        { text: "Find the second largest number in a list.", hint: "Sort or track two variables.", solution: "nums = [4,2,8,6,8]\nfirst = second = float('-inf')\nfor n in nums:\n    if n > first:\n        second = first\n        first = n\n    elif n > second and n != first:\n        second = n\nprint(second)" },
+        { text: "Write a program to check if two strings are anagrams.", hint: "Sort both strings and compare.", solution: "s1 = input(\"String1: \")\ns2 = input(\"String2: \")\nif sorted(s1) == sorted(s2):\n    print(\"Anagram\")\nelse:\n    print(\"Not anagram\")" },
+        { text: "Generate a random number between 1 and 100 and let the user guess it.", hint: "Use random module, while loop, give hints.", solution: "import random\nnum = random.randint(1,100)\nguess = None\nwhile guess != num:\n    guess = int(input(\"Guess: \"))\n    if guess < num: print(\"Too low\")\n    elif guess > num: print(\"Too high\")\nprint(\"Correct!\")" },
+        { text: "Write a program that counts the frequency of each word in a sentence.", hint: "Split sentence, use dict to count.", solution: "sentence = input(\"Sentence: \")\nwords = sentence.split()\nfreq = {}\nfor w in words:\n    freq[w] = freq.get(w,0)+1\nprint(freq)" },
+        { text: "Find the common elements between two lists.", hint: "Use set intersection or loop.", solution: "list1 = [1,2,3,4]\nlist2 = [3,4,5,6]\ncommon = [x for x in list1 if x in list2]\nprint(common)" },
+        { text: "Write a function that checks if a number is an Armstrong number (e.g., 153).", hint: "Sum of cubes of digits equals number.", solution: "n = int(input(\"Number: \"))\ns = sum(int(d)**3 for d in str(n))\nprint(\"Armstrong\" if s==n else \"Not Armstrong\")" }
+      ] }
+  ];
+
+  function buildQuestionsHTML() {
+    const container = document.getElementById("questionsContainer");
+    if (!container) return;
+    let html = "";
+    for (let level of levelsData) {
+      html += `<section class="level-section" data-level="${level.id}" id="section-${level.id}">`;
+      html += `<div class="level-header"><div><h2 class="level-title">${level.title}</h2><p class="level-desc">${level.desc}</p></div></div>`;
+      html += `<ol class="question-list">`;
+      for (let i = 0; i < level.questions.length; i++) {
+        const q = level.questions[i];
+        const qIndex = i+1;
+        html += `
+          <li class="question-item">
+            <div class="question-meta">${level.id}-Q${qIndex}</div>
+            <div class="question-text">${q.text}</div>
+            <div class="question-actions">
+              <button class="qa-btn hint-toggle" data-level="${level.id}" data-qidx="${qIndex}">💡 Hint</button>
+              <button class="qa-btn solution-toggle" data-level="${level.id}" data-qidx="${qIndex}">🧩 Solution</button>
+            </div>
+            <div class="hint-box" id="hint-${level.id}-${qIndex}">${q.hint}</div>
+            <div class="solution-box" id="sol-${level.id}-${qIndex}"><pre><code>${escapeHtml(q.solution)}</code></pre></div>
+          </li>
+        `;
+      }
+      html += `</ol></section>`;
+    }
+    container.innerHTML = html;
+
+    // attach toggle events
+    document.querySelectorAll(".hint-toggle").forEach(btn => {
+      btn.addEventListener("click", function() {
+        const levelId = this.getAttribute("data-level");
+        const qidx = this.getAttribute("data-qidx");
+        const hintDiv = document.getElementById(`hint-${levelId}-${qidx}`);
+        if (hintDiv) hintDiv.classList.toggle("visible");
+      });
+    });
+    document.querySelectorAll(".solution-toggle").forEach(btn => {
+      btn.addEventListener("click", function() {
+        const levelId = this.getAttribute("data-level");
+        const qidx = this.getAttribute("data-qidx");
+        const solDiv = document.getElementById(`sol-${levelId}-${qidx}`);
+        if (solDiv) solDiv.classList.toggle("visible");
+      });
+    });
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+
+  function initFilter() {
+    const filterSelect = document.getElementById("levelFilter");
+    const countSpan = document.getElementById("questionCount");
+    function updateFilter() {
+      const selected = filterSelect.value;
+      let visibleCount = 0;
+      document.querySelectorAll(".level-section").forEach(section => {
+        const level = section.getAttribute("data-level");
+        if (selected === "all" || selected === level) {
+          section.style.display = "";
+          visibleCount += section.querySelectorAll(".question-item").length;
+        } else {
+          section.style.display = "none";
+        }
+      });
+      countSpan.innerHTML = selected === "all" ? `📋 All levels · ${visibleCount} questions` : `📋 ${visibleCount} questions`;
+    }
+    filterSelect.addEventListener("change", updateFilter);
+    updateFilter();
+  }
+
+  buildQuestionsHTML();
+  initFilter();
+</script>
+</body>
+</html>

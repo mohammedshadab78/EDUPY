@@ -57,8 +57,8 @@ Advanced Support:
 
 ```
 EduPy/
-│── index.html        # Main Playground
-│── home.html         # Landing Page
+│── home.html        # Main Playground
+│── index.html         # Landing Page
 │── projects.html     # Mini Projects
 │── notes.html        # Python Notes
 │── assessments.html  # Practice Questions
@@ -157,4 +157,3 @@ Built to make Python learning:
 > Simple, Visual, and Fun 🎯
 
 ---
-"# EDUPY" 
